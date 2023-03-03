@@ -21,16 +21,27 @@ const displayAllAi = data => {
         div.classList.add('col');
         div.innerHTML = `
                      <div class="card h-100 shadow">
-                        <img class="m-4 rounded-3" src="${image}" class="card-img-top" alt="logo">
+                        <img class="m-4 rounded-3 img-fluid" src="${image}" class="card-img-top" alt="logo">
                         <div class="card-body">
-                            <h5 class="card-title">${features}</h5>
-                            <p class="card-text">This is a short card.</p>
+                            <h5 class="card-title">Features</h5>
+                            <ol>
+                            <li class="fs-6 text-muted">${features[0]}</li>
+                            <li class="fs-6 text-muted">${features[1]}</li>
+                            <li class="fs-6 text-muted">${features[2]}</li> 
+                            </ol>
                         </div>
-                        <hr>
-                        <div class="p-3">
-                        <h5>${name}</h5>
-                        <small class="text-muted"><i class="fa-thin fa-calendar-days"></i> <span> ${publish} </span> </small>
-                      </div>
+                        <hr class="">
+                       <div class="d-flex align-items-center justify-content-between px-3 pb-3">
+                       <div>
+                       <h5 class="mb-3">${name}</h5>
+                       <small class="text-muted"><i class="fas fa-arrow-right"></i> <span> ${publish} </span> </small>
+                     </div>
+                     <div>
+                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#aiDetailModal">
+                     <i class="fas fa-arrow-right"></i>
+                     </button>
+                     </div>                     
+                       </div>
                     </div>
                      `
         cardField.appendChild(div)
