@@ -1,24 +1,31 @@
 
 
-const loadAllAi = async () => {
+const loadAllAi = async (dataLimit) => {
     toggleLoader(true)
     const url = ' https://openapi.programming-hero.com/api/ai/tools'
     const res = await fetch(url)
     const data = await res.json();
-    displayAllAi(data)
+    displayAllAi(data.data.tools, dataLimit)
 }
 
-const displayAllAi = data => {
-    const tools = data.data.tools
+const displayAllAi = (tools , dataLimit) => {
     const cardField = document.getElementById('ai-cards')
-    // console.log(cardField)
-    tools.slice(0,6)
+    const showAll = document.getElementById('show-all-section')
+    const backSection = document.getElementById('back-section')
+     if(dataLimit && tools.length > 6){
+        tools = tools.slice(0,6)
+        showAll.classList.remove('d-none')
+    backSection.classList.add('d-none')
+     }
+     else{
+        showAll.classList.add('d-none')
+     } 
+    
     tools.forEach(tool => {
         const name = tool.name
         const image = tool.image
         const publish = tool.published_in
         const features =tool.features
-        // console.log(name,image,publish,features)
         const div = document.createElement('div')
         div.classList.add('col');
         div.innerHTML = `
@@ -60,4 +67,23 @@ const toggleLoader = isLoading=>{
         loaderSection.classList.add('d-none')
     }
 }
-loadAllAi();
+document.getElementById('show-all-btn').addEventListener('click',function(){
+    const cardField = document.getElementById('ai-cards')
+    cardField.innerHTML=""
+    const backSection = document.getElementById('back-section')
+    backSection.classList.remove('d-none')
+    processData();
+})
+
+document.getElementById('back-btn').addEventListener('click',function(){
+    const cardField = document.getElementById('ai-cards')
+    cardField.innerHTML=""
+    processData(6);
+})
+
+const processData=(dataLimit)=>{
+    toggleLoader(true)
+    loadAllAi(dataLimit)
+}
+processData(6);
+// loadAllAi();
