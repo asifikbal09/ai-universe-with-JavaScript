@@ -1,5 +1,5 @@
 
-
+// api loading 
 const loadAllAi = async (dataLimit) => {
     toggleLoader(true)
     const url = 'https://openapi.programming-hero.com/api/ai/tools'
@@ -9,23 +9,24 @@ const loadAllAi = async (dataLimit) => {
 
 }
 
+// display all data 
 const displayAllAi = (tools , dataLimit) => {
     const cardField = document.getElementById('ai-cards')
     const showAll = document.getElementById('show-all-section')
     const backSection = document.getElementById('back-section')
      if(dataLimit && tools.length > 6){
-        tools = tools.slice(0,6)
+        tools = tools.slice(0,6) //slice and btn show
         showAll.classList.remove('d-none')
     backSection.classList.add('d-none')
      }
      else{
         showAll.classList.add('d-none')
-     } 
-    
+     }
     tools.forEach(tool => {
         const name = tool.name
         const image = tool.image
         const publish = tool.published_in
+        // features show one by one in the list 
         const features = tool =>{
             let list ='';
             for (let i = 0; i < tool.features.length; i++) {
@@ -37,6 +38,7 @@ const displayAllAi = (tools , dataLimit) => {
         const id =tool.id
         const div = document.createElement('div')
         div.classList.add('col');
+        // set innerHTML to the card 
         div.innerHTML = `
                      <div class="card h-100 shadow">
                         <img class="m-4 rounded-3 img-fluid" src="${image}" class="card-img-top" alt="logo">
@@ -60,7 +62,7 @@ const displayAllAi = (tools , dataLimit) => {
                        </div>
                     </div>
                      `
-        cardField.appendChild(div)
+        cardField.appendChild(div) //append the card
     });
     toggleLoader(false)
 }
@@ -111,7 +113,7 @@ const displayDetail = data =>{
     const questionAnswer = data.input_output_examples
     const accuracy = data =>{
        
-       let btn = `<button class="btn btn-secondary">${data.accuracy.score}% accuracy</button>`
+       let btn = `<button class="btn btn-danger">${data.accuracy.score}% accuracy</button>`
        return btn;
     }
     const integrations = data =>{
@@ -172,6 +174,68 @@ const displayDetail = data =>{
     
     `
 
+}
+
+const loadSort = async ()=>{
+    toggleLoader(true)
+    const url = 'https://openapi.programming-hero.com/api/ai/tools'
+    const res = await fetch(url)
+    const data = await res.json()
+    displaySorting(data.data.tools)
+}
+const displaySorting = data =>{
+    const tools = data
+    // sorting function 
+    function byDate(a,b){
+        return new Date(a.published_in).valueOf() - new Date(b.published_in);
+    }
+    tools.sort(byDate)
+
+    const cardField = document.getElementById('ai-cards') //remove all cards
+    cardField.innerHTML=""
+    tools.forEach(tool => {
+        const name = tool.name
+        const image = tool.image
+        const publish = tool.published_in
+        // features show one by one in the list 
+        const features = tool =>{
+            let list ='';
+            for (let i = 0; i < tool.features.length; i++) {
+                 list += `<li>${tool.features[i]}</li>`;
+                
+            }
+            return list;
+        }
+        const id =tool.id
+        const div = document.createElement('div')
+        div.classList.add('col');
+        // set innerHTML to the card 
+        div.innerHTML = `
+                     <div class="card h-100 shadow">
+                        <img class="m-4 rounded-3 img-fluid" src="${image}" class="card-img-top" alt="logo">
+                        <div class="card-body">
+                            <h5 class="card-title">Features</h5>
+                            <ol>
+                            ${features(tool)} 
+                            </ol>
+                        </div>
+                        <hr class="">
+                       <div class="d-flex align-items-center justify-content-between px-3 pb-3">
+                       <div>
+                       <h5 class="mb-3">${name}</h5>
+                       <small class="text-muted"><i class="far fa-calendar-alt"></i> <span> ${publish} </span> </small>
+                     </div>
+                     <div>
+                     <button onclick=loadAiDetail('${id}') type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#aiDetailModal">
+                     <i class="fas fa-arrow-right"></i>
+                     </button>
+                     </div>                     
+                       </div>
+                    </div>
+                     `
+        cardField.appendChild(div) //append the card
+    });
+    toggleLoader(false)
 }
 
 processData(6);

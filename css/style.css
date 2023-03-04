@@ -3,14 +3,14 @@ li{
     font-size: 16px;
     line-height: 26px;
 }
-.btn-secondary{
+.btn-danger{
+    background-color: tomato;
     position: absolute;
     right: 4vw;
     top: 18vh;
 }
 @media screen and (min-width: 300px) {
    .btn-secondary{
-    position: absolute;
     top: 90vh;
     right: 13vw;
    }
