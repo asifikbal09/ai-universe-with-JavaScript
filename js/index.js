@@ -109,6 +109,11 @@ const displayDetail = data =>{
     const pro = data.pricing
     const enterprise = data.pricing
     const questionAnswer = data.input_output_examples
+    const accuracy = data =>{
+       
+       let btn = `<button class="btn btn-secondary">${data.accuracy.score}% accuracy</button>`
+       return btn;
+    }
     const integrations = data =>{
         let li = ''
         for (let i = 0; i < data.integrations.length; i++) {
@@ -132,13 +137,13 @@ const displayDetail = data =>{
 
     const div = document.getElementById('modal-container')
     div.innerHTML=`
-            <div class="row row-cols-2 g-4 p-2">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-2 g-4 p-2">
             <div class="col bg-danger-subtle p-3 rounded">
                 <h5 class="w-75">${description ? description : 'No description found'}</h5>
                 <div class="d-flex gap-3 my-5">
-                    <div class="border rounded p-2 fw-semibold w-25 bg-secondary-subtle text-center text-success">${basic ? basic[0].price : 'Free of cost'} Basic</div>
-                    <div class="border rounded p-2 fw-semibold w-25 bg-secondary-subtle text-center text-warning">${pro ? pro[1].price : 'Free of cost'} pro </div>
-                    <div class="border rounded p-2 fw-semibold w-25 bg-secondary-subtle text-center text-danger">${enterprise ? enterprise[2].price : 'Free of cost'} Enterprise</div>
+                    <div class="border rounded p-2 fw-semibold w-50 bg-secondary-subtle text-wrap text-center text-success">${basic ? basic[0].price : 'Free of cost'} Basic</div>
+                    <div class="border rounded p-2 fw-semibold w-50 bg-secondary-subtle text-wrap text-center text-warning">${pro ? pro[1].price : 'Free of cost'} pro </div>
+                    <div class="border rounded p-2 fw-semibold w-50 bg-secondary-subtle text-wrap text-center text-danger">${enterprise ? enterprise[2].price : 'Free of cost'} Enterprise</div>
                 </div>
                 <div class="d-flex justify-content-around">
                     <div>
@@ -157,6 +162,7 @@ const displayDetail = data =>{
                 </div>
             </div>
             <div class="col border shadow rounded p-3">
+            ${data.accuracy.score? accuracy(data):''}
             <img class="img-fluid p-3 rounded" src="${image}">
             <div class="text-center my-3 p-2">
             <h5>${questionAnswer?questionAnswer[0].input: 'No data exist'}</h5>
