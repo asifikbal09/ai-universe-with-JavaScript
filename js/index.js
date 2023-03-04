@@ -236,9 +236,11 @@ const displaySorting = data =>{
                     </div>
                      `
         cardField.appendChild(div) //append the card
-        const showAll = document.getElementById('show-all-section')
-        showAll.classList.add('d-none')
     });
+    const showAll = document.getElementById('show-all-section')
+    showAll.classList.add('d-none')
+    const backSection = document.getElementById('back-section')
+backSection.classList.remove('d-none')
     toggleLoader(false)
 }
 
