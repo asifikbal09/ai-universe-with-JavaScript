@@ -76,6 +76,7 @@ const toggleLoader = isLoading=>{
         loaderSection.classList.add('d-none')
     }
 }
+// show all btn 
 document.getElementById('show-all-btn').addEventListener('click',function(){
     const cardField = document.getElementById('ai-cards')
     cardField.innerHTML=""
@@ -83,7 +84,7 @@ document.getElementById('show-all-btn').addEventListener('click',function(){
     const backSection = document.getElementById('back-section')
     backSection.classList.remove('d-none')
 })
-
+//  back btn 
 document.getElementById('back-btn').addEventListener('click',function(){
     const cardField = document.getElementById('ai-cards')
     cardField.innerHTML=""
@@ -94,14 +95,14 @@ const processData=(dataLimit)=>{
     toggleLoader(true)
     loadAllAi(dataLimit)
 }
-
+// dynamic api load 
 const loadAiDetail = async id =>{
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
     const res = await fetch(url)
     const data = await res.json()
     displayDetail(data.data)
 }
-
+// display all detail function 
 const displayDetail = data =>{
     console.log(data)
     const name = data.name
@@ -111,11 +112,13 @@ const displayDetail = data =>{
     const pro = data.pricing
     const enterprise = data.pricing
     const questionAnswer = data.input_output_examples
+//    accuracy btn
     const accuracy = data =>{
        
        let btn = `<button class="btn btn-danger">${data.accuracy.score}% accuracy</button>`
        return btn;
     }
+    // integrations list 
     const integrations = data =>{
         let li = ''
         for (let i = 0; i < data.integrations.length; i++) {
@@ -177,7 +180,6 @@ const displayDetail = data =>{
 }
 
 const loadSort = async ()=>{
-    toggleLoader(true)
     const url = 'https://openapi.programming-hero.com/api/ai/tools'
     const res = await fetch(url)
     const data = await res.json()
@@ -234,6 +236,8 @@ const displaySorting = data =>{
                     </div>
                      `
         cardField.appendChild(div) //append the card
+        const showAll = document.getElementById('show-all-section')
+        showAll.classList.add('d-none')
     });
     toggleLoader(false)
 }

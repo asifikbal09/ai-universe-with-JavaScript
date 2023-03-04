@@ -20,7 +20,7 @@
             AI Universe Hub
         </h1>
         <div class="text-center my-3">
-            <button onclick="loadSort()" id="sort" class="btn btn-primary fw-semibold">Sort By Date</button>
+            <button onclick="loadSort(),toggleLoader(true)" id="sort" class="btn btn-primary fw-semibold">Sort By Date</button>
         </div>
     </header>
 
@@ -36,7 +36,7 @@
             <!-- Modal -->
             <div class="modal fade" id="aiDetailModal" tabindex="-1" aria-labelledby="aiDetailModalLabel"
                 aria-hidden="true">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="aiDetailModalLabel">Details</h1>
