@@ -108,6 +108,7 @@ const displayDetail = data =>{
     const basic = data.pricing
     const pro = data.pricing
     const enterprise = data.pricing
+    const questionAnswer = data.input_output_examples
     const integrations = data =>{
         let li = ''
         for (let i = 0; i < data.integrations.length; i++) {
@@ -131,7 +132,7 @@ const displayDetail = data =>{
 
     const div = document.getElementById('modal-container')
     div.innerHTML=`
-            <div class="row row-cols-2 g-5 p-4">
+            <div class="row row-cols-2 g-4 p-2">
             <div class="col bg-danger-subtle p-3 rounded">
                 <h5 class="w-75">${description ? description : 'No description found'}</h5>
                 <div class="d-flex gap-3 my-5">
@@ -155,8 +156,12 @@ const displayDetail = data =>{
                     </div>
                 </div>
             </div>
-            <div class="col">
-            <img class="img-fluid" src="${image}">
+            <div class="col border shadow rounded p-3">
+            <img class="img-fluid p-3 rounded" src="${image}">
+            <div class="text-center my-3 p-2">
+            <h5>${questionAnswer?questionAnswer[0].input: 'No data exist'}</h5>
+            <small class="w-75 mt-3">${questionAnswer ? questionAnswer[0].output: 'NO data found'}</small>
+            </div>
             </div>
     
     `
